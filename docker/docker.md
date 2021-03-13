@@ -16,12 +16,15 @@
 ## Basic Docker Commands
 
 ```
-# Run instance of the app
+# Run instance of an app
 docker run application
+
+# Run instance of an app and give it a name
+docker run --name myappname application
 ```
 
 ```
-# Run instance of the app backround
+# Run instance of an app backround
 docker run -d application
 ```
 
@@ -73,9 +76,26 @@ docker run -it centos bash
 ```
 
 ## Volume mapping
-When the container is deleted, its data is deleted too. To avoid this, we can make data persistent mapping it to a directory outside the container.
+When the container is deleted, its data is deleted too. To avoid this, we can make data persistent mapping it to a directory outside the container.\
 For example, to run an instance of mysql with persisten data, we can do this:
 ```
 docker run -v /home/matimercado/desktop/docker:/var/lib/mysql mysql
 ```
  where /var/lib/mysql is a folder inside the docker container
+
+
+## Hands on with Jenkins
+For more information check https://hub.docker.com/_/jenkins
+
+Jenkins is a Continuous Integration and Delivery server
+
+To run it with docker:
+```
+docker run jenkins/jenkins
+```
+This will pull and run the last image.\
+Now we have to know the ip of the container to run it localy. To do this, we can use this command line
+```
+docker inspect containername | grep IP
+```
+![docker_](/images/docker_inspect_containername_grep_IP.png)
