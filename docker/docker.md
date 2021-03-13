@@ -98,4 +98,4 @@ Now we have to know the ip of the container to run it localy. To do this, we can
 ```
 docker inspect containername | grep IP
 ```
-![docker_](/images/docker_inspect_containername_grep_IP.png)
+![docker_container](docker/images/docker_inspect_containername_grep_IP.png)
