@@ -87,15 +87,34 @@ docker run -v /home/matimercado/desktop/docker:/var/lib/mysql mysql
 ## Hands on with Jenkins
 For more information check https://hub.docker.com/_/jenkins
 
-Jenkins is a Continuous Integration and Delivery server
+Jenkins is a Continuous Integration and Delivery server. We can access it in two ways: 
+- Using the internal IP of the container
+- By mapping a port to the docker host and accessing it using the external IP
 
-To run it with docker:
+To run it with docker using container IP:
 ```
 docker run jenkins/jenkins
 ```
 This will pull and run the last image.\
-Now we have to know the ip of the container to run it localy. To do this, we can use this command line
+Now we have to know the IPAdress of the container to run it localy. To do this, we can use this command line.
 ```
 docker inspect containername | grep IP
 ```
-![docker_container](/docker/images/docker_inspect_containername_grep_IP.png)
+![docker_grep_IP](/docker/images/docker_inspect_containername_grep_IP.png)
+
+In this case, we have to insert **172.17.0.2:8080** in our web browser, and paste the pass give by the container.
+
+To run it maaping a port to the docker host:
+```
+docker run -p 8081:8080 jenkins/jenkins
+```
+
+And insert in the web browser the IP and port of our docker host, for example **192.168.1.162:8081**, and paste the pass give by the container.
+
+If we configure the jenkins server and then we stop the container, configuration will we lost. To avoid this, we can make a persistent volume to store our settings:
+```
+docker run -p 8081:8080 -v /home/matimercado/Desktop/docker/jenkins_data:/var/jenkins_home jenkins:jenkins
+```
+where /var/jenkins_home is where the container store the data
+
+## Docker images
