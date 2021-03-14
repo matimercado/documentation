@@ -115,6 +115,6 @@ If we configure the jenkins server and then we stop the container, configuration
 ```
 docker run -p 8081:8080 -v /home/matimercado/Desktop/docker/jenkins_data:/var/jenkins_home jenkins:jenkins
 ```
-where /var/jenkins_home is where the container store the data
+where /var/jenkins_home is where the container stores the data
 
 ## Docker images
