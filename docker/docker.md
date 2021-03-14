@@ -115,6 +115,30 @@ If we configure the jenkins server and then we stop the container, configuration
 ```
 docker run -p 8081:8080 -v /home/matimercado/Desktop/docker/jenkins_data:/var/jenkins_home jenkins:jenkins
 ```
-where /var/jenkins_home is where the container stores the data
+where /var/jenkins_home is where the container stores the data.
 
 ## Docker images
+To create a docker image, first we have to create a Dockerfile, like this:
+
+```
+cat docker_file
+
+FROM ubuntu
+RUN apt-get update && apt-get -y install python neofetch
+RUN pip install flask flask-mysql
+COPY . /opt/source-code
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+```
+
+where the words in capitals are instructions and the words in low case are arguments.
+
+The line **FROM Ubuntu** specifies an start from a base OS or another image.
+
+The instruction **COPY** copies files from the local system onto Docker image.
+
+The instruction **ENTRYPOINT** allows us to specify a command that will be run when the image is run as a container.
+
+To run our docker image:
+```
+docker build . -f docker_file -t my_app
+```
