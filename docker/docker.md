@@ -123,11 +123,12 @@ To create a docker image, first we have to create a Dockerfile, like this:
 ```
 cat docker_file
 
-FROM ubuntu
-RUN apt-get update && apt-get -y install python neofetch
-RUN pip install flask flask-mysql
-COPY . /opt/source-code
-ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+FROM ubuntu:xenial
+RUN apt-get update
+RUN apt-get install -y python python-pip
+RUN pip install flask
+COPY app.py /opt/
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0
 ```
 
 where the words in capitals are instructions and the words in low case are arguments.
@@ -138,7 +139,22 @@ The instruction **COPY** copies files from the local system onto Docker image.
 
 The instruction **ENTRYPOINT** allows us to specify a command that will be run when the image is run as a container.
 
+To create our docker image:
+```
+docker build . -f docker_file -t mercadomati/my_first_webapp
+```
+
 To run our docker image:
 ```
-docker build . -f docker_file -t my_app
+docker run my_first_webapp
+```
+**app.py** can be download from https://github.com/mmumshad/simple-webapp-flask
+
+We can push our docker image to our docker hub repository. First we need to create an account in https://hub.docker.com/ and login with the command:
+```
+docker login
+```
+After that, we can push the image:
+```
+docker push mercadomati/my_first_webapp
 ```
